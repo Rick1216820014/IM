@@ -1,0 +1,10 @@
+Name: User
+Host: 0.0.0.0
+Port: 8888
+
+UserRpc:
+  Etcd:
+    Hosts:
+#      - etcd:2379
+      - 127.0.0.1:2379
+    Key: user.rpc

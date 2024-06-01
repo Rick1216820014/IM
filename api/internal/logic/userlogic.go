@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"fmt"
 	"im/api/internal/svc"
 	"im/api/internal/types"
 	//"im/rpc/userclient"
@@ -32,7 +33,7 @@ func (l *UserLogic) User(req *types.UserReq) (resp *types.UserResp, err error) {
 	//if err != nil {
 	//	return nil, err
 	//}
-
+	fmt.Println(req)
 	return &types.UserResp{
 		Id:    "1",
 		Name:  "高瑞克",

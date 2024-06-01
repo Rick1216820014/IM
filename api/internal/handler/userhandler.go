@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"bytes"
+	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -10,7 +13,19 @@ import (
 )
 
 func userHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+			return
+		}
+		// 打印请求的 Body（假设请求的数据是JSON格式）
+		fmt.Println(string(body))
+
+		// 将请求的 Body 转回到请求对象中
+		r.Body = io.NopCloser(bytes.NewBuffer(body))
 		var req types.UserReq
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
